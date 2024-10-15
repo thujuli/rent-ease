@@ -1,5 +1,5 @@
 {
-  "name": "start-turbo",
+  "name": "rent-ease",
   "private": true,
   "scripts": {
     "build": "turbo build",
