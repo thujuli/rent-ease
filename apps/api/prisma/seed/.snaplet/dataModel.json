@@ -34,6 +34,20 @@
           "maxLength": null
         },
         {
+          "id": "public.users.email",
+          "name": "email",
+          "columnName": "email",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
           "id": "public.users.password",
           "name": "password",
           "columnName": "password",
@@ -165,6 +179,13 @@
           "name": "users_pkey",
           "fields": [
             "id"
+          ],
+          "nullNotDistinct": false
+        },
+        {
+          "name": "users_email_key",
+          "fields": [
+            "email"
           ],
           "nullNotDistinct": false
         },
