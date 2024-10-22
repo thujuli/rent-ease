@@ -1,15 +1,7 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsNumber, Max, Min, validateSync } from 'class-validator';
-
-enum Environment {
-  DEV = 'DEV',
-  PROD = 'PROD',
-}
+import { IsNumber, Max, Min, validateSync } from 'class-validator';
 
 class EnvironmentVariables {
-  @IsEnum(Environment)
-  NODE_ENV: Environment;
-
   @IsNumber()
   @Min(0)
   @Max(65535)

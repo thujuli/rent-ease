@@ -1,22 +1,19 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from '~/app.module';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { ValidationPipe } from '@nestjs/common';
+import { AppModule } from '~/app.module';
+import { CatchEverythingFilter } from '~/common/filters/catch-everything.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
-  const envMode = configService.get('NODE_ENV');
+  const httpAdapterHost = app.get(HttpAdapterHost);
 
   app.setGlobalPrefix('api/v1');
-  app.useGlobalPipes(
-    new ValidationPipe({
-      disableErrorMessages: envMode === 'PROD',
-      whitelist: true,
-    }),
-  );
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.useGlobalFilters(new CatchEverythingFilter(httpAdapterHost));
 
   const config = new DocumentBuilder()
     .setTitle('Rent Ease API')
