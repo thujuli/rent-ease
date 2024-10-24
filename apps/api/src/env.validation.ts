@@ -1,11 +1,14 @@
 import { plainToInstance } from 'class-transformer';
-import { IsNumber, Max, Min, validateSync } from 'class-validator';
+import { IsNumber, IsString, Max, Min, validateSync } from 'class-validator';
 
 class EnvironmentVariables {
   @IsNumber()
   @Min(0)
   @Max(65535)
   PORT: number;
+
+  @IsString()
+  CORS_ORIGIN: string;
 }
 
 export function validate(config: Record<string, unknown>) {
